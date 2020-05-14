@@ -1,40 +1,46 @@
 #pragma once
 
-#include"Employee.h"
-#include"Medicine.h"
-#include"RepoFile.h"
-#include"RepoFile.cpp"
+#include"Service.h"
 
 #include<assert.h>
 
 void test_Employee()
 {
-	//contructor implicit
+	/*
+		Employee:
+			int id
+			string name
+			string email
+			int accessLevel
+	*/
+
+	//default contructor
 	Employee e;
 	assert(e.getId() == 0);
 	assert(e.getName() == "");
 	assert(e.getEmail() == "");
 	assert(e.getAccessLevel() == 0);
 
-	//constructor cu parametri
+	//parameters constructor
 	Employee e1(1, "nume1", "email1", 1);
 	assert(e1.getId() == 1);
 	assert(e1.getName() == "nume1");
 	assert(e1.getEmail() == "email1");
 	assert(e1.getAccessLevel() == 1);
 
-	//constructor de copiere
+	//copy constructor
 	Employee e2(e1);
 	assert(e2.getId() == 1);
 	assert(e2.getName() == "nume1");
 	assert(e2.getEmail() == "email1");
 	assert(e2.getAccessLevel() == 1);
 
-	//set-eri
+	//set
 	e2.setId(2);
 	e2.setName("nume2");
 	e2.setEmail("email2");
 	e2.setAccessLevel(2);
+
 	assert(e2.getId() == 2);
 	assert(e2.getName() == "nume2");
 	assert(e2.getEmail() == "email2");
@@ -44,15 +50,15 @@ void test_Employee()
 	assert(!(e1 == e2));
 
 	//operator=
-	e1 = e2;
+	e2 = e1;
 	assert(e1 == e2);
 
 	//operator >> si <<
 	//cin >> e1;
 	//cout << e1;
 
+	/*
 	//teste metode IE
-
 	//clone
 	Employee* e3 = new Employee(3, "nume3", "email3", 1);
 	Employee* ec = e3->clone();
@@ -60,7 +66,7 @@ void test_Employee()
 
 	Employee* e4 = new Employee(4, "nume4", "email4", 1);
 	Employee* e5 = new Employee(5, "nume5", "email5", 0);
-	
+
 	//equals
 	assert(e4->equals(e4));
 	assert(!(e4->equals(e5)));
@@ -80,124 +86,103 @@ void test_Employee()
 	delete e3;
 	delete e4;
 	delete e5;
-
+	*/
 	cout << "Employee tests are ok!" << endl;
 }
 
-/*
 void test_Medicine()
 {
-	//contructor implicit
+	/*
+		Medicine:
+			int id
+			string name
+			int needRecipie
+			int stockQuantity
+			string producer
+	*/
+	
+	//default contructor
 	Medicine m;
 	assert(m.getId() == 0);
 	assert(m.getName() == "");
-	assert(m.getNeedRecepie() == false);
+	assert(m.getNeedRecepie() == 0);
 	assert(m.getStockQuantity() == 0);
 	assert(m.getProducer() == "");
 
-	//constructor cu parametri
-	Medicine m1(1, "nume1", true, 10, "producator1");
+	//paramaters constructor
+	Medicine m1(1, "nume1", 0, 10, "prod1");
 	assert(m1.getId() == 1);
 	assert(m1.getName() == "nume1");
-	assert(m1.getNeedRecepie() == 1);
+	assert(m1.getNeedRecepie() == 0);
 	assert(m1.getStockQuantity() == 10);
-	assert(m1.getProducer() == "producator1");
+	assert(m1.getProducer() == "prod1");
 
-	//constructor de copiere
+	//copy contructor
 	Medicine m2(m1);
 	assert(m2.getId() == 1);
 	assert(m2.getName() == "nume1");
-	assert(m2.getNeedRecepie() == 1);
+	assert(m2.getNeedRecepie() == 0);
 	assert(m2.getStockQuantity() == 10);
-	assert(m2.getProducer() == "producator1");
+	assert(m2.getProducer() == "prod1");
 
-	//set-eri
+	//set
 	m2.setId(2);
 	m2.setName("nume2");
-	m2.setNeedRecepie(false);
+	m2.setNeedRecepie(1);
 	m2.setStockQuantity(20);
-	m2.setProducer("producator2");
+	m2.setProducer("prod2");
+
 	assert(m2.getId() == 2);
 	assert(m2.getName() == "nume2");
-	assert(m2.getNeedRecepie() == false);
+	assert(m2.getNeedRecepie() == 1);
 	assert(m2.getStockQuantity() == 20);
-	assert(m2.getProducer() == "producator2");
+	assert(m2.getProducer() == "prod2");
 
 	//operator==
 	assert(!(m1 == m2));
 
 	//operator=
-	m1 = m2;
+	m2 = m1;
 	assert(m1 == m2);
 
-	//operator >> si <<
-	//cin >> m1;
-	//cout << m1;
-
-
-	//teste metode IE
-
-	//clone
-	Medicine* m3 = new Medicine(3, "nume3", 0, 30, "producator3");
-	Medicine* mc = m3->clone();
-	assert(mc != m3);
-
-	Medicine* m4 = new Medicine(4, "nume4", 1, 40, "producator4");
-	Medicine* m5 = new Medicine(5, "nume5", 0, 50, "producator5");
-
-	//equals
-	m4->equals(m4);
-	assert(m4->equals(m4));
-	assert(!(m4->equals(m5)));
-
-	//compareTo
-	assert(m5->compareTo(m4) == 1);
-
-	//toString
-	assert(m4->toString() == "Medicine: 4 nume4 1 40 producator4");
-
-	//copy
-	m4->copy(m5);
-	//cout << m4->toString() << endl;
-	assert(m4->equals(m5));
-
-	delete mc;
-	delete m3;
-	delete m4;
-	delete m5;
+	//>> <<
+	/*cin >> m;
+	cout << m;*/
 
 	cout << "Medicine tests are ok!" << endl;
 }
-*/
+
+
 /*
 void test_Repo()
 {
-	Repo<Medicine> repo;
-	Medicine m1(1, "nume1", true, 10, "producator1");
-	Medicine m2(2, "nume2", true, 20, "producator2");
+	Repo<Employee> repo;
 
-	repo.addElement(m1);
-	repo.addElement(m2);
-	assert(repo.noElements() == 2);
+	//add
+	Employee e1(1, "nume1", "email1", 1);
+	Employee e2(2, "nume2", "email2", 2);
+	repo.addElement(e1);
+	repo.addElement(e2);
 
-	vector<Medicine> elements = repo.getElements();
-	vector<Medicine> ::iterator it;
-	for (it = elements.begin(); it != elements.end(); it++)
+	assert(repo.getSize() == 2);
+	assert(repo.getElement(1) == e1);
+	assert(repo.getElement(2) == e2);
+
+	//get elements
+	vector<Employee> v = repo.getElements();
+	vector<Employee>::iterator it;
+	for (it = v.begin(); it != v.end(); it++)
 		cout << *it;
-	cout << endl;
-	
 
-	assert(repo.getElement(1) == m1);
-	assert(repo.getElement(2) == m2);
-	
-	Medicine m3(2, "nume3", true, 30, "producator3");
+	//update
+	Employee e3(3, "nume3", "email3", 3);
+	repo.updateElement(2, e3);
+	assert(repo.getElement(3)==e3);
 
-	repo.updateElement(2, m3);
-	assert(repo.getElement(2) == m3);
-
+	//delete
 	repo.deleteElement(1);
-	repo.deleteElement(2);
-	assert(repo.noElements() == 0);
+	repo.deleteElement(3);
+	assert(repo.getSize() == 0);
 
 	cout << "Repo tests are ok!" << endl;
 }
@@ -206,13 +191,66 @@ void test_Repo()
 /*
 void test_RepoFile()
 {
-	RepositoryFileTXT<Medicine> repo("dataIn.txt", "dataOut.txt");
+	RepoFile<Employee> repoF("dataIn.txt", "dataOut.txt");
 
-	vector<Medicine> elements = repo.getElements();
-	vector<Medicine> ::iterator it;
-	for (it = elements.begin(); it != elements.end(); it++)
+	//add
+	Employee e1(1, "nume1", "email1", 1);
+	Employee e2(2, "nume2", "email2", 2);
+	repoF.addElement(e1);
+	repoF.addElement(e2);
+
+	assert(repoF.getSize() == 2);
+	assert(repoF.getElement(1) == e1);
+	assert(repoF.getElement(2) == e2);
+
+	//get elements
+	vector<Employee> v = repoF.getElements();
+	vector<Employee>::iterator it;
+	for (it = v.begin(); it != v.end(); it++)
+		;// cout << *it;
+
+	//update
+	Employee e3(3, "nume3", "email3", 3);
+	repoF.updateElement(2, e3);
+	assert(repoF.getElement(3) == e3);
+
+	//delete
+	repoF.deleteElement(1);
+	repoF.deleteElement(3);
+	assert(repoF.getSize() == 0);
+
+	repoF.addElement(e1);
+	repoF.addElement(e2);
+
+	cout << "repoFFile tests are ok!" << endl;
+}
+*/
+/*
+void test_Service()
+{
+	RepoFile<Employee> repoE("dataInE.txt", "dataOutE.txt");
+	RepoFile<Medicine> repoM("dataInM.txt", "dataOutM.txt");
+
+	Service service(repoE, repoM);
+	
+	service.addEmployee(1, "nume1", "email1", 1);
+	service.addEmployee(2, "nume2", "email2", 2);
+	assert(service.getNoEmployees() == 2);
+
+	vector<Employee> v = service.getEmployees();
+	vector<Employee>::iterator it;
+	for (it = v.begin(); it != v.end(); it++)
 		cout << *it << endl;
-	cout << endl;
 
+	service.updateEmployee(2, 3, "nume3", "email3", 3);
+	assert(service.getEmployee(3).getName() == "nume3");
+
+	service.deleteEmployee(1);
+	service.deleteEmployee(3);
+	assert(service.getNoEmployees() == 0);
+	
+	service.addMedicine(1, "nume1", 0, 10, "prod1");
+
+	cout << "ServiceEmployee tests are ok!" << endl;
 }
 */

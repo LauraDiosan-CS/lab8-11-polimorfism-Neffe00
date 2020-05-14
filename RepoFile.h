@@ -6,36 +6,56 @@
 using namespace std;
 
 template <class T>
-class RepositoryFileTXT : public Repository<T>
+class RepoFile : public Repo<T>
 {
-
 private:
 	char* fileNameIn;
 	char* fileNameOut;
 
 public:
-	RepositoryFileTXT();
-	RepositoryFileTXT(const char* fileNameIn, const char* fileNameOut);
-	RepositoryFileTXT(const RepositoryFileTXT& r);
-	~RepositoryFileTXT();
+	RepoFile();
+	RepoFile(const char* fileNameIn, const char* fileNameOut);
+	RepoFile(const RepoFile& r);
+	~RepoFile();
+	RepoFile& operator = (const RepoFile& r);
 
-	void add(const T* element);
-	void update(T* element,const T* newElement);
-	void del(int id);
+	void addElement(T element);
+	void updateElement(int id, T newElement);
+	void deleteElement(int id);
+
+	void setFileNameIn(const char* fileNameIn);
+	void setFileNameOut(const char* fileNameOut);
 
 	void loadFromFile();
 	void saveToFile();
 
-	RepositoryFileTXT& operator = (const RepositoryFileTXT& r)
+	void add(T element)
 	{
-		this->elements = r.elements;
+		Repo<T>::addElement(element);
+	}
 
-		this->fileNameIn = new char[strlen(r.fileNameIn) + 1];
-		strcpy_s(this->fileNameIn, strlen(r.fileNameIn) + 1, r.fileNameIn);
+	vector<T> getAll()
+	{
+		return this->getElements();
+	}
 
-		this->fileNameOut = new char[strlen(r.fileNameOut) + 1];
-		strcpy_s(this->fileNameOut, strlen(r.fileNameOut) + 1, r.fileNameOut);
+	void update(Medicament* m, Medicament& newM)
+	{
+		vector<Medicament> Medicines = this->getElements();
+		vector<Medicament> ::iterator it;
+		for (it = Medicines.begin(); it != Medicines.end(); it++)
+			if (it->getId() == m->getId())
+			{
+				this->updateElement(it->getId(), newM);
+				break;
+			}
 
-		return*this;
+		//delete m;
+		//m = new Medicament(newM);
+	}
+
+	void remove(int id)
+	{
+		this->deleteElement(id);
 	}
 };

@@ -4,78 +4,24 @@
 #include<iterator>
 using namespace std;
 
+#include"Employee.h"
+#include"Medicine.h"
+
 template <class T>
-class Repository
+class Repo
 {
-public:
+protected:
 	vector<T> elements;
 public:
-	Repository()
-	{
-		this->elements.clear();
-	}
-	Repository(const Repository& r)
-	{
-		this->elements = r.getElements();
-	}
-	~Repository()
-	{
-		this->elements.clear();
-	}
+	Repo();
+	Repo(const Repo& r);
+	~Repo();
+	Repo& operator=(const Repo& r);
 
-	int noElements()
-	{
-		return this->elements.size();
-	}
-
-	virtual void add(const T* element)
-	{
-		this->elements.push_back(element);
-	}
-
-	T getElement(int id)
-	{
-		typename vector<T> ::iterator it;
-
-		for (it = this->elements.begin(); it != this->elements.end(); it++)
-			if ((*it).getId() == id)
-				return *it;
-	}
-
-	vector<T*> getAll()
-	{
-		typename vector<T*> v;
-		//this->elements.clear();
-		
-		for (int i = 0; i < this->elements.size(); i++)
-			v.push_back( this->elements[i].clone() );
-
-		//typename vector<T> ::iterator it;
-		//for (it = this->elements.begin(); it != this->elements.end(); it++)
-			//v.push_back( it );
-
-		return v;
-	}
-
-	virtual void update(T* element,const T* newElement)
-	{
-		typename vector<T> ::iterator it;
-		for (it = this->elements.begin(); it != this->elements.end(); it++)
-			if ((*it).getId() == (*element).getId() )
-			{
-				*it = *newElement;
-				break;
-			}
-	}
-
-	virtual void del(int id)
-	{
-		typename vector<T> ::iterator it;
-		for (it = this->elements.begin(); it != this->elements.end(); it++)
-			if ((*it).getId() == id)
-			{
-				this->elements.erase(it);
-				break;
-			}
-	}
+	int getSize();
+	void addElement(const T& element);
+	T getElement(int id);
+	vector<T> getElements();
+	void updateElement(int id, const T& newElement);
+	void deleteElement(int id);
 };

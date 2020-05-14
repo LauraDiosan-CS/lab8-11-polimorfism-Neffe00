@@ -1,18 +1,23 @@
 #include"RepoFile.h"
 
+#include<iostream>
+using namespace std;
+
 #include<vector>
 #include<iterator>
+
 #include<fstream>
 
+
 template <class T>
-RepositoryFileTXT<T>::RepositoryFileTXT()
+RepoFile<T>::RepoFile()
 {
 	this->fileNameIn = NULL;
 	this->fileNameOut = NULL;
 }
 
 template <class T>
-RepositoryFileTXT<T>::RepositoryFileTXT(const char* fileNameIn, const char* fileNameOut)
+RepoFile<T>::RepoFile(const char* fileNameIn, const char* fileNameOut)
 {
 	this->fileNameIn = new char[strlen(fileNameIn) + 1];
 	strcpy_s(this->fileNameIn, strlen(fileNameIn) + 1, fileNameIn);
@@ -24,7 +29,7 @@ RepositoryFileTXT<T>::RepositoryFileTXT(const char* fileNameIn, const char* file
 }
 
 template<class T>
-RepositoryFileTXT<T>::RepositoryFileTXT(const RepositoryFileTXT& r)
+RepoFile<T>::RepoFile(const RepoFile& r)
 {
 	this->elements = r.elements;
 
@@ -37,10 +42,23 @@ RepositoryFileTXT<T>::RepositoryFileTXT(const RepositoryFileTXT& r)
 	this->loadFromFile();
 }
 
-template <class T>
-RepositoryFileTXT<T>::~RepositoryFileTXT()
+template<class T>
+RepoFile<T>& RepoFile<T>::operator = (const RepoFile& r)
 {
-	saveToFile();
+	this->elements = r.elements;
+
+	this->fileNameIn = new char[strlen(r.fileNameIn) + 1];
+	strcpy_s(this->fileNameIn, strlen(r.fileNameIn) + 1, r.fileNameIn);
+
+	this->fileNameOut = new char[strlen(r.fileNameOut) + 1];
+	strcpy_s(this->fileNameOut, strlen(r.fileNameOut) + 1, r.fileNameOut);
+
+	return*this;
+}
+
+template <class T>
+RepoFile<T>::~RepoFile()
+{
 	if (this->fileNameIn != NULL)
 	{
 		delete[] this->fileNameIn;
@@ -55,49 +73,62 @@ RepositoryFileTXT<T>::~RepositoryFileTXT()
 }
 
 template <class T>
-void RepositoryFileTXT<T>::add(const T* element)
+void RepoFile<T>::addElement(T element)
 {
-	this->elements.push_back(*element);
+	Repo<T>::addElement(element);
 	this->saveToFile();
 }
 
 template <class T>
-void RepositoryFileTXT<T>::update(T* element,const T* newElement)
+void RepoFile<T>::updateElement(int id, T newElement)
 {
-	typename vector<T> ::iterator it;
-	for (it = this->elements.begin(); it != this->elements.end(); it++)
-		if ((*it).getId() == (*element).getId())
-		{
-			*it = *newElement;
-			break;
-		}
-
+	Repo<T>::updateElement(id, newElement);
 	this->saveToFile();
 }
 
 template <class T>
-void RepositoryFileTXT<T>::del(int id)
+void RepoFile<T>::deleteElement(int id)
 {
-	typename vector<T> ::iterator it;
-	for (it = this->elements.begin(); it != this->elements.end(); it++)
-		if ((*it).getId() == id)
-		{
-			this->elements.erase(it);
-			break;
-		}
+	Repo<T>::deleteElement(id);
 	this->saveToFile();
+}
+
+template <class T>
+void RepoFile<T>::setFileNameIn(const char* fileNameIn)
+{
+	if (this->fileNameIn)
+	{
+		delete[] this->fileNameIn;
+		this->fileNameIn = NULL;
+	}
+
+	this->fileNameIn = new char[strlen(fileNameIn) + 1];
+	strcpy_s(this->fileNameIn, strlen(fileNameIn) + 1, fileNameIn);
+}
+
+template <class T>
+void RepoFile<T>::setFileNameOut(const char* fileNameOut)
+{
+	if (this->fileNameOut)
+	{
+		delete[] this->fileNameOut;
+		this->fileNameOut = NULL;
+	}
+
+	this->fileNameOut = new char[strlen(fileNameOut) + 1];
+	strcpy_s(this->fileNameOut, strlen(fileNameOut) + 1, fileNameOut);
 }
 
 
 template <class T>
-void RepositoryFileTXT<T>::saveToFile()
+void RepoFile<T>::saveToFile()
 {
 	if (this->fileNameOut != NULL)
 	{
 		ofstream f(this->fileNameOut);
 
 		vector<T> elements = this->elements;
-		typename vector<T> ::iterator it;
+		class vector<T> ::iterator it;
 
 		for (it = elements.begin(); it != elements.end(); it++)
 		{
@@ -110,7 +141,7 @@ void RepositoryFileTXT<T>::saveToFile()
 }
 
 template <class T>
-void RepositoryFileTXT<T>::loadFromFile()
+void RepoFile<T>::loadFromFile()
 {
 	if (this->fileNameIn != NULL)
 	{

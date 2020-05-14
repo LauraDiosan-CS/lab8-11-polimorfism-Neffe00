@@ -1,8 +1,9 @@
 #pragma once
 
-#include"IE.h"
+#include<iostream>
+using namespace std;
 
-class Medicament : public IE
+class Medicament
 {
 private:
 	int id;
@@ -35,10 +36,4 @@ public:
 
 	friend istream& operator>>(istream& is, Medicament& m);
 	friend ostream& operator<<(ostream& os, const Medicament& m);
-
-	Medicament* clone();
-	void copy(IE* e);
-	bool equals(IE* e);
-	int compareTo(IE* e);
-	string toString();
 };

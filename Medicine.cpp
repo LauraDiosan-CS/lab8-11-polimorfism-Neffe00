@@ -93,7 +93,7 @@ Medicament& Medicament::operator=(const Medicament& m)
 bool Medicament::operator==(const Medicament& m)
 {
 	return
-		this->id == m.id && 
+		this->id == m.id &&
 		this->name == m.name &&
 		this->needRecepie == m.needRecepie &&
 		this->stockQuantity == m.stockQuantity &&
@@ -104,10 +104,10 @@ bool Medicament::operator!=(const Medicament& m)
 {
 	return
 		!(this->id == m.id &&
-		this->name == m.name &&
-		this->needRecepie == m.needRecepie &&
-		this->stockQuantity == m.stockQuantity &&
-		this->producer == m.producer);
+			this->name == m.name &&
+			this->needRecepie == m.needRecepie &&
+			this->stockQuantity == m.stockQuantity &&
+			this->producer == m.producer);
 }
 
 
@@ -123,6 +123,7 @@ ostream& operator<<(ostream& os, const Medicament& m)
 	return os;
 }
 
+/*
 Medicament* Medicament::clone()
 {
 	Medicament* pm = new Medicament;
@@ -163,6 +164,7 @@ int Medicament::compareTo(IE* e)
 }
 
 string Medicament::toString()
+
 {
 	string s = "";
 	s = s + "Medicament: ";
@@ -177,3 +179,5 @@ string Medicament::toString()
 	s = s + this->producer;
 	return s;
 }
+
+*/

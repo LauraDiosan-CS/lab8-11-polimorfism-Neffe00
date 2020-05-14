@@ -97,6 +97,8 @@ ostream& operator<<(ostream& os, const Employee& e)
 	return os;
 }
 
+
+/*
 Employee* Employee::clone()
 {
 	Employee* pe = new Employee;
@@ -147,3 +149,4 @@ string Employee::toString()
 	s = s + to_string(this->accessLevel);
 	return s;
 }
+*/
