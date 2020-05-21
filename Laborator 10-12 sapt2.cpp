@@ -1,6 +1,5 @@
-//#include"Tests.h"
+#include"Tests.h"
 #include"UI.h"
-#include"MedicineService.h"
 
 #include<assert.h>
 
@@ -79,15 +78,15 @@ void runProgram()
 	service->update(m1, m1_new);
 	
 
-	/*vector<Medicament> meds = service->getMedicines();
-	vector<Medicament> ::iterator it;
-	for (it = meds.begin(); it != meds.end(); it++)
-		cout << *it << endl;
-	cout << endl;
-	vector<Medicament> searchList = service->search("al");
-	vector<Medicament> ::iterator it2;
-	for (it2 = searchList.begin(); it2 != searchList.end(); it2++)
-		cout << *it2 << endl;*/
+	//vector<Medicament> meds = service->getMedicines();
+	//vector<Medicament> ::iterator it;
+	//for (it = meds.begin(); it != meds.end(); it++)
+	//	cout << *it << endl;
+	//cout << endl;
+	//vector<Medicament> searchList = service->search("al");
+	//vector<Medicament> ::iterator it2;
+	//for (it2 = searchList.begin(); it2 != searchList.end(); it2++)
+	//	cout << *it2 << endl;
 
 	assert(service->search("al").size() == 2);
 	assert(service->search("al")[0] == *m1);
@@ -101,19 +100,22 @@ void runProgram()
 	delete m2;
 	delete m1;
 	delete service;
+}
 
-	/*
+void _runUI()
+{
 	RepoFile<Employee> repoE("dataInE.txt", "dataOutE.txt");
-	RepoFile<Medicine> repoM("dataInM.txt", "dataOutM.txt");
-	Service service(repoE, repoM);
+	RepoFile<Medicament> repoM("dataInM.txt", "dataOutM.txt");
+	ServiceEM service(repoE, repoM);
+
 	UI ui(service);
 	ui.runUI();
-	*/
 }
 
 int main()
 {
-	runProgram();
+	_runUI();
+	//runProgram();
 	if (_CrtDumpMemoryLeaks() > 0)
 		cout << "exista memory leaks" << endl;
 	return 0;
